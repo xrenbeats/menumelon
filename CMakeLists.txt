@@ -8,5 +8,5 @@ add_geode_mod(
     MenuMelon
     VERSION 1.0.0
     CONTAINS_GEODE_FILES
-    SOURCES src/main.cpp
+    SOURCES Main.cpp
 )
