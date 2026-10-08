@@ -1,0 +1,9 @@
+{
+    "geode": "4.4.0",
+    "id": "yourname.menumelon",
+    "name": "MenuMelon",
+    "version": "1.0.0",
+    "developer": "YourName",
+    "description": "A Geode mod for iOS built entirely with code.",
+    "ios": "bin"
+}
