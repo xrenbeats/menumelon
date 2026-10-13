@@ -1,29 +1,32 @@
-name: Build Geode Mod
+
+name: Build MenuMelon for iOS
 
 on:
+  workflow_dispatch:
   push:
     branches:
-      - blob
+      - "**"
 
 jobs:
   build:
-    strategy:
-      fail-fast: false
-      matrix:
-        config:
-          - name: iOS
-            os: macos-latest
-            target: ios
-
-    name: ${{ matrix.config.name }}
-    runs-on: ${{ matrix.config.os }}
+    name: Build MenuMelon (iOS)
+    runs-on: macos-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Build Mod
+      - name: Build MenuMelon
+        id: build
         uses: geode-sdk/build-geode-mod@main
         with:
-          bindings: geode-sdk/bindings
-          target: ${{ matrix.config.target }}
+          target: iOS
+          sdk: given
+          build-config: Release
+
+      - name: Upload Geode package
+        uses: actions/upload-artifact@v4
+        with:
+          name: MenuMelon-iOS
+          path: ${{ steps.build.outputs.build-output }}/*.geode
+          if-no-files-found: error
