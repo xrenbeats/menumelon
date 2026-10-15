@@ -1,4 +1,3 @@
-
 name: Build MenuMelon for iOS
 
 on:
@@ -7,16 +6,31 @@ on:
     branches:
       - "**"
 
+permissions:
+  contents: read
+
 jobs:
   build:
     name: Build MenuMelon (iOS)
     runs-on: macos-latest
+    timeout-minutes: 30
+    env:
+      GEODE_SDK: ${{ github.workspace }}/geode-sdk
 
     steps:
-      - name: Checkout
+      - name: Checkout mod
         uses: actions/checkout@v4
 
-      - name: Build MenuMelon
+      # sdk: given requires an SDK that has already been downloaded.
+      - name: Checkout Geode SDK
+        uses: actions/checkout@v4
+        with:
+          repository: geode-sdk/geode
+          ref: v4.4.0
+          path: geode-sdk
+          submodules: recursive
+
+      - name: Build Geode Mod
         id: build
         uses: geode-sdk/build-geode-mod@main
         with:
